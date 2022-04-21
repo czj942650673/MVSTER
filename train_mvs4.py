@@ -23,7 +23,7 @@ parser.add_argument('--testpath', help='test datapath')
 parser.add_argument('--trainlist', help='train list')
 parser.add_argument('--testlist', help='test list')
 
-parser.add_argument('--epochs', type=int, default=10, help='number of epochs to train')
+parser.add_argument('--epochs', type=int, default=16, help='number of epochs to train')
 parser.add_argument('--lr', type=float, default=0.001, help='learning rate')
 parser.add_argument('--lrepochs', type=str, default="6,8,9:2", help='epoch ids to downscale lr and the downscale rate')
 parser.add_argument('--wd', type=float, default=0.0, help='weight decay')
@@ -32,7 +32,7 @@ parser.add_argument('--batch_size', type=int, default=1, help='train batch size'
 parser.add_argument('--interval_scale', type=float, default=1.06, help='the number of depth values')
 
 parser.add_argument('--loadckpt', default=None, help='load a specific checkpoint')
-parser.add_argument('--logdir', default='./checkpoints/debug', help='the directory to save checkpoints/logs')
+parser.add_argument('--logdir', default='/home/czj/MVSTER-main/checkpoints/dtu/16exp_name/', help='the directory to save checkpoints/logs')
 parser.add_argument('--resume', action='store_true', help='continue to train the model')
 
 parser.add_argument('--summary_freq', type=int, default=2, help='print and summary frequency')
@@ -364,7 +364,7 @@ if __name__ == '__main__':
     start_epoch = 0
     if args.resume:
         saved_models = [fn for fn in os.listdir(args.logdir) if fn.endswith(".ckpt")]
-        saved_models = sorted(saved_models, key=lambda x: int(x.split('_')[-1].split('.')[0]))
+        saved_models = sorted(saved_models)
         # use the latest checkpoint file
         loadckpt = os.path.join(args.logdir, saved_models[-1])
         print("resuming", loadckpt)
